@@ -1,0 +1,84 @@
+UseContext():
+Props(properties) in React are used to pass data from the parent component to child component.
+Prop drilling is the process of passing the data from parent component to deeply (nested) child component through intermediate components by passing data as props at each level.
+
+
+
+import React from 'react';
+function App() {
+  const data = "Hello Iam Sathvik"
+  return (
+    <>
+    <User1 data={data}/>
+    </>
+  )
+}
+//User 1 component
+function User1(props) {
+  return (
+    <User2 data={data}/>
+  )
+}
+//User 2 component
+function User2(props) {
+  return (
+    <User3 data={data}/>
+  )
+}
+//User 3 component
+function User3(props) {
+  return (
+    <User4 data={data}/>
+  )
+}
+//User 4 component
+function User4(props) {
+  return (
+    <h1>{data}</h1>
+  )
+}
+export default App;
+
+Error: Can't pass data from user 1 to user 4 directly
+
+Using useContext:
+
+
+import React, { createContext, useContext } from 'react';
+// Create a context to hold the data
+const DataContext = createContext();
+function App() {
+  // The data we want to share with user 4
+  const data = "Hello Iam Sathvik";
+  return (
+    <DataContext.Provider value={data}>
+      <User1 />
+    </DataContext.Provider>
+  );
+}
+// User 1 component
+function User1() {
+  return (
+    <User2 />
+  );
+}
+// User 2 component
+function User2() {
+  return (
+    <User3 />
+  );
+}
+// User 3 component
+function User3() {
+  return (
+    <User4 />
+  );
+}
+// User 4 component
+function User4() {
+  const data = useContext(DataContext);
+  return (
+    <h1>{data}</h1>
+  );
+}
+export default App;

@@ -1,0 +1,79 @@
+React Reducer():
+A react is a function that helps to update (like score, a list) based on action we take.
+	1) Current State: The current value of a state
+	2) Action: Add or remove an element
+	3) State: initial value
+	
+	
+	import React, { useReducer } from 'react';
+	// Reducer function to track the number of apples
+	function appleReducer(state = 3, action) {
+	  switch (action.type) {
+	    case 'ADD_APPLE':
+	      return state + 1;
+	    case 'Eat_APPLE':
+	      return state - 1;
+	    default:
+	      return state;
+	  }
+	}
+	function App() {
+	  const [count, dispatch] = useReducer(appleReducer, 3);
+	  return (
+	    <div style={{ textAlign: 'center', padding: '50px', fontSize: '20px', backgroundColor: 'lightblue', margin: 'auto', width: '50%', borderRadius: '10px', marginTop: '50px' }}>
+	      <img src={require('./Apple.jpg')} alt='Apple' style={{ width: '100px', height: '100px' }} />
+	      <h1>Apple Counter</h1>
+	      <p>Number of apples: {count}</p>
+	      <button
+	        style={{ margin: '10px', padding: '10px 20px', fontSize: '16px', backgroundColor: 'green', color: 'white', border: 'none', borderRadius: '5px' }}
+	        onClick={() => dispatch({ type: 'ADD_APPLE' })}
+	      >
+	        Add Apple
+	      </button>
+	      <button
+	        style={{ margin: '10px', padding: '10px 20px', fontSize: '16px', backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '5px' }}
+	        onClick={() => dispatch({ type: 'Eat_APPLE' })}
+	      >
+	        Eat Apple
+	      </button>
+	    </div>
+	  );
+	}
+	export default App;
+	
+Callback in React:
+	- In react, a callback is function that is passed as an argument to another function
+	- Call backs are often used to communicate with different components
+	Ex: A parent component passing as Call back to a child
+	Parent component displays a message and child component has a button
+	When the button is clicked, the child will use callback function and tells the parent to update
+App.js:
+
+import React,{useState} from 'react';
+import Child from './Child';
+const Parent=()=>{
+  const[message,setMessage]=useState('Hello World');
+  const changeMessage=()=>{
+    setMessage('You clicked the button');
+  }
+  return(
+    <div>
+      <h1>{message}</h1>
+      {/* Passing the function as a prop to the child component */}
+      <Child changeMessage={changeMessage} />
+    </div>
+  )
+}
+export default Parent;
+
+Child.js
+
+import React from "react";
+const Child=({changeMessage})=>{
+  return(
+    <div>
+      <button onClick={changeMessage}>Click me</button>
+    </div>
+  )
+}
+export default Child;

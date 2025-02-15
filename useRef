@@ -1,0 +1,15 @@
+Use Ref():
+Track the previous state
+import React,{useState, useEffect, useRef} from "react";
+function couterWithPrev(){
+  const [count, setCount] = useState(0);
+  const prevCount = useRef(0);
+  useEffect(()=>{
+    prevCount.current = count;
+  },[count]);
+  return(
+    <div>
+      <p>Count: {count}</p>
+    </div>
+  )
+}

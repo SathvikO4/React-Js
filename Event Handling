@@ -1,0 +1,72 @@
+Event handling in React:
+Event handling in react is how you make your app do something when the user interacts with it like clicking a button, submitting a form
+	1) onClick
+	2) keyDown
+	3) onMouse
+	4) onChange
+
+How to use Events in React:
+	• Use camcelCase for event names
+	• Pass a function to the event(not to a function call). This function will run when the event happens
+		○ onClick:
+			
+			import React from "react";
+			function App(){
+			  const handleClick = () => {
+			    alert("Button was clicked");
+			  };
+			  return (
+			    <div>
+			      <button onClick={handleClick}>Click Me</button>
+			    </div>
+			  );
+			}
+			export default App;
+		○ onChange:
+		Occurs when you time something in the textBox	
+		Key Points
+		Target is the properties of the event and is predefined by javaScript for DOM events.
+		Event.target : always refers the elements buttons form elements and use to access the extra elements.
+		
+		
+		import React,{useState} from "react";
+		function App(){
+		  const [text,setText] = useState("");
+		  //initialize the state with an empty string
+		  const handleChange = (event) => {
+		    setText(event.target.value); //update the state with the value of the input field
+		  };
+		  return (
+		    <div>
+		      <input type="text" onChange={handleChange} />
+		      <p>Your Text: {text}</p>
+		    </div>
+		  );
+		}
+		export default App;
+		
+		○ Mouse Events(onMouseEnter, onMouseLeave)
+		
+		
+		import React,{useState} from "react";
+		function App() {
+		  const [isHovered, setIsHovered] = useState(false);
+		  const handleMouseEnter = () => {
+		    setIsHovered(true);
+		  }
+		  const handleMouseLeave = () => {
+		    setIsHovered(false);
+		  }
+		  return(
+		    <div>
+		      <button
+		        onMouseEnter={handleMouseEnter}
+		        onMouseLeave={handleMouseLeave}
+		      style={{backgroundColor: isHovered ? "lightblue" : "lightgrey",color:isHovered ? "white" : "red"}}>
+		        Hover over me!
+		      </button>
+		      {isHovered ? <div>Hovered!</div>:<div>Not Hovered!!</div>}
+		    </div>
+		  )
+		}
+export default App;

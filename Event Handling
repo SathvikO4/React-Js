@@ -70,3 +70,25 @@ How to use Events in React:
 		  )
 		}
 export default App;
+
+		○ Key Events(onKeyDown)
+			§ Syntax: onKeyDown={keyDownFunction}
+				□ keyDown function: This is a function that runs whenever any key is pressed on the key board
+				□ Return type: It returns a keyboard event object that provides information about the key that was pressed
+			
+			import React, { useState } from "react";
+			import './App.css'
+			function App(){
+			    const [key,setKey]=useState("");
+			    const handleKeyDown=(event)=>{
+			        setKey(event.key);
+			    };
+			    return (
+			        <div className="app">
+			            <h1>Welcome to MRU IT Solutions</h1>
+			            {key&& <h2>Pressed key: {key}</h2>}
+			            <input type="text" onKeyPress={handleKeyDown} placeholder="Pressed here"/>
+			        </div>
+			    );
+			}
+export default App;
